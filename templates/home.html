@@ -1,10 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
-This is home page.
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Home</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/normalize.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/home_style.css') }}">
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/home.js') }}" defer></script>
+    </head>
+    <body>
+        <dialog id="new_task">
+            <form id="new_task_form" method="post" action="{{ url_for('api_blueprint.tasks_blueprint.create_task') }}">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required>
+                <label for="description">Description</label>
+                <textarea type="text" id="description" name="description" wrap="hard" rows="10"></textarea>
+                <div class="menu">
+                    <button type="submit">Создать задачу</button>
+                    <button id="close" type="reset">Отмена</button>
+                </div>
+            </form>
+        </dialog>
+        <header>
+            <p><b>TODO List</b></p>
+            <div class="header__right">
+                <p>{{ username }}</p>
+                <button class="btn-text" onclick="logout()">Log out</button>
+            </div>
+        </header>
+        <main>
+            <div class="main-container">
+                <div class="tasks-container" id="unchecked_tasks">
+                    <header class="unchecked"><p><b>Незавершённые</b></p></header>
+                    {% for task in unchecked_tasks %}
+                        <div class="task" data-id="{{ task.id }}">
+                            <input type="checkbox" value="task" onchange="changed_checkbox()">
+                            <input type="text" id="task-description-unchecked" name="task-description" value="{{ task.title }}" ondblclick="show_all()" required>
+                            <img src='https://api.iconify.design/bx/bx-trash.svg?color=red&height=28' onclick="delete_task()" alt="trash-icon">
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="new-task" onclick="show_new_task_form()">Новая задача</button>
+                <div class="tasks-container" id="checked_tasks">
+                    <header class="checked"><p><b>Завершённые</b></p></header>
+                    {% for task in checked_tasks %}
+                        <div class="task" data-id="{{ task.id }}">
+                            <input type="checkbox" value="task" onchange="changed_checkbox()" checked>
+                            <input type="text" id="task-description-checked" name="task-description" value="{{ task.title }}" required>
+                            <img src='https://api.iconify.design/bx/bx-trash.svg?color=red&height=28' onclick="delete_task()" alt="trash-icon">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </main>
+    </body>
 </html>
