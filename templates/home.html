@@ -45,7 +45,7 @@
                     {% for task in checked_tasks %}
                         <div class="task" data-id="{{ task.id }}">
                             <input type="checkbox" value="task" onchange="changed_checkbox()" checked>
-                            <input type="text" id="task-description-checked" name="task-description" value="{{ task.title }}" required>
+                            <input type="text" id="task-description-checked" name="task-description" value="{{ task.title }}" ondblclick="show_all()" required>
                             <img src='https://api.iconify.design/bx/bx-trash.svg?color=red&height=28' onclick="delete_task()" alt="trash-icon">
                         </div>
                     {% endfor %}

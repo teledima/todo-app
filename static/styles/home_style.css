@@ -11,7 +11,6 @@
     --cancel-color: #FF6C6C;
     --green: #30BA00;
     --light-green: #E3FF92;
-    --orange: #FFE86F;
     --normal-font-size: 16px;
     --big-font-size: 20px;
     --very-small-indent: 0.5rem;
@@ -211,8 +210,4 @@ button[type='reset'] {
 
 button[type='submit'] {
     background-color: var(--green);
-}
-
-button.update {
-    background-color: var(--orange);
 }

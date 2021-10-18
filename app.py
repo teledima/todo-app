@@ -1,4 +1,4 @@
-from flask import Flask, session, redirect, render_template
+from flask import Flask, session, redirect, render_template, make_response
 import sqlite3
 from api import api_blueprint
 
@@ -39,3 +39,18 @@ def login():
         return redirect('/')
     else:
         return render_template('login.html')
+
+
+@app.route('/tasks/<int:task_id>', methods=['GET'])
+def show_full_info(task_id):
+    if 'user_id' in session:
+        db = sqlite3.connect('todo.db')
+        cur = db.cursor()
+        task = cur.execute('select title, description, user_id from tasks where id = :id', {'id': task_id}).fetchone()
+        task_dict = dict(title=task[0], description=task[1], user_id=task[2])
+        if task_dict['user_id'] == session['user_id']:
+            return render_template('full_info.html', title=task_dict['title'], description=task_dict['description'])
+        else:
+            return make_response('', 403)
+    else:
+        return redirect('/login')

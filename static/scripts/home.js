@@ -36,12 +36,9 @@ document.getElementById('new_task_form').addEventListener('submit', (event) => {
             return response.json();
      })
      .then(json => {
-            if (task_id != undefined)
-                document.querySelector(`div[data-id="${task_id}"] > input[type="text"]`).value = title
-            else {
-                let unchecked_tasks_container = document.getElementById('unchecked_tasks');
-                unchecked_tasks_container.appendChild(create_new_task(json['id'], title));
-            }
+            let unchecked_tasks_container = document.getElementById('unchecked_tasks');
+            unchecked_tasks_container.appendChild(create_new_task(json['id'], title));
+         }
      });
      close_dialog();
 });
@@ -130,20 +127,5 @@ function changed_checkbox() {
 function show_all() {
     let title_input = event.srcElement;
     let task_element = title_input.parentElement;
-
-    fetch(`/api/tasks/get-full-info/${task_element.dataset.id}`)
-        .then(response => {
-            if (response.status == 200) return response.json();
-        })
-        .then(json => {
-            let dialog_form = document.getElementById('new_task_form');
-            dialog_form.action = '/api/tasks/update-task';
-            dialog_form.setAttribute('data-id', task_element.dataset.id);
-
-            dialog_form.querySelector('input[type="text"]').value = json['title'];
-            dialog_form.querySelector('textarea').value = json['description'];
-            dialog_form.querySelector('button[type="submit"]').textContent = "Обновить задачу";
-            dialog_form.querySelector('button[type="submit"]').className = 'update';
-            dialog_form.parentElement.showModal();
-        });
+    window.location.href = `/tasks/${task_element.dataset.id}`;
 }

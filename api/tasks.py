@@ -57,16 +57,3 @@ def update_status():
     cur.execute(update_stmt.get_sql())
     db.commit()
     return make_response(jsonify(), 200)
-
-
-@tasks_blueprint.route('/get-full-info/<int:task_id>', methods=['GET'])
-def get_full_info(task_id):
-    db = sqlite3.connect('todo.db')
-    cur = db.cursor()
-    task = cur.execute('select title, description, user_id from tasks where id = :id', {'id': task_id}).fetchone()
-    task_dict = dict(title=task[0], description=task[1], user_id=task[2])
-
-    if task_dict['user_id'] == session['user_id']:
-        return jsonify(title=task_dict['title'], description=task_dict['description']), 200
-    else:
-        return make_response('', 403)
