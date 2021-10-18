@@ -38,7 +38,6 @@ document.getElementById('new_task_form').addEventListener('submit', (event) => {
      .then(json => {
             let unchecked_tasks_container = document.getElementById('unchecked_tasks');
             unchecked_tasks_container.appendChild(create_new_task(json['id'], title));
-         }
      });
      close_dialog();
 });
