@@ -14,6 +14,9 @@ def login():
     request_data = request.json
     user_login = request_data['login']
     user_password = request_data['password']
+    
+    if not user_login or not user_password:
+        return jsonify(ok=False, error='empty_data'), 200
 
     db_instance = db.connect('todo.db')
     cur = db_instance.cursor()
@@ -25,9 +28,7 @@ def login():
     else:
         return jsonify(ok=False, error='incorrect_login_or_password'), 200
 
-    session['user_login'] = user_login
-    session['user_id'] = row[0]
-    return redirect('/')
+    return jsonify(ok=True, user_id=row[0]), 200
 
 
 @users_blueprint.route('/register', methods=['POST'])
@@ -35,6 +36,9 @@ def register():
     request_data = request.json
     user_login = request_data['login']
     user_password = request_data['password']
+    
+    if (not user_login or not user_password):
+        return jsonify(ok=False, error='empty_data'), 200
 
     db_instance = db.connect('todo.db')
     cur = db_instance.cursor()

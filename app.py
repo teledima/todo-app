@@ -1,8 +1,10 @@
 from flask import Flask, session, redirect, render_template, make_response
+from flask_cors import CORS
 import sqlite3
 from api import api_blueprint
 
 app = Flask(__name__)
+CORS(app)
 app.register_blueprint(api_blueprint)
 app.secret_key = 'dfsfadgbdf'
 
