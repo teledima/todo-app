@@ -1,0 +1,66 @@
+
+.Login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: fit-content;
+}
+
+.Login form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    row-gap: var(--small-indent);
+}
+
+.Login input {
+    border-radius: var(--normal-border-radius);
+    border: var(--normal-border-width);
+    border-color: var(--gray);
+    padding: var(--very-small-indent);
+}
+
+.Login button {
+    background-color: var(--light-blue);
+    border: 0;
+    border-radius: var(--normal-border-radius);
+
+    padding-left: var(--small-indent);
+    padding-right: var(--small-indent);
+    padding-top: var(--very-small-indent);
+    padding-bottom: var(--very-small-indent);
+
+    margin-left: var(--small-indent);
+    margin-right: var(--small-indent);
+}
+
+.Login label {
+    margin-right: var(--big-indent);
+}
+
+.Login div.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.Login div.buttons > *:last-child {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.Login p {
+    margin: 0;
+}
+
+.Login .error {
+    color: var(--red);
+    text-align: right;
+}
+
+.Login .success {
+    color: var(--green);
+    text-align: right;
+}

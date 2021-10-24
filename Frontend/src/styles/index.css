@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --gray: #DADADA;
+  --light-gray: #E7E7E7;
+  --light-blue: #CAF9FF;
+  --red: #FF0000;
+  --light-red: #FFBDBD;
+  --cancel-color: #FF6C6C;
+  --green: #30BA00;
+  --light-green: #E3FF92;
+  --normal-font-size: 16px;
+  --big-font-size: 20px;
+  --very-small-indent: 0.5rem;
+  --small-indent: 0.75rem;
+  --normal-indent: 1rem;
+  --big-indent: 1.5rem;
+  --normal-border-radius: 5px;
+  --normal-border-width: 4px solid;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: var(--normal-font-size);
+
+  background-color: white;
+}
+
+p {
+  margin: 0;
+}

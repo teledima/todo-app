@@ -1,0 +1,32 @@
+.NewTaskForm {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--normal-indent);
+    padding: var(--normal-indent);
+}
+
+.InputBlock {
+    display: flex;
+    flex-direction: column;
+}
+
+.Menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    column-gap: var(--small-indent);
+}
+
+.Menu > button {
+    border-radius: var(--normal-border-radius);
+}
+
+.create {
+    background-color: var(--green);
+}
+
+.cancel {
+    background-color: var(--cancel-color);
+}
+
+

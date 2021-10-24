@@ -1,0 +1,95 @@
+html, body, #root{
+    height: 100%;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+}
+
+/* main */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex: 1;
+
+    padding-top: var(--big-indent);
+    padding-bottom: var(--big-indent);
+}
+
+.Home, .TaskList {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--normal-indent);
+}
+
+.Home {
+    width: 50%;
+    min-width: 650px;
+    background-color: var(--light-blue);
+    padding: var(--normal-indent);
+}
+
+.Home > *:last-child {
+    margin-top: auto;
+}
+
+@media (max-width: 700px) {
+    .Home {
+        width: 100%;
+        min-width: unset;
+        background-color: var(--light-blue);
+        padding: var(--normal-indent);
+        margin-left: var(--normal-indent);
+        margin-right: var(--normal-indent);
+    }
+}
+
+.TaskItem {
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    column-gap: var(--small-indent);
+}
+
+.TaskList > header {
+    display: flex;
+    justify-content: center;
+    padding-top: var(--small-indent);
+    padding-bottom: var(--small-indent);
+    border-radius: var(--normal-border-radius);
+    font-size: var(--normal-font-size);
+}
+
+header.checked {
+    background-color: var(--light-green);
+    border: 3px solid var(--green);
+}
+
+header.unchecked {
+    background-color: var(--light-red);
+    border: 3px solid var(--red);
+}
+
+input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+}
+
+.TaskItem > input[type='text'] {
+    min-width: 400px;
+    padding: var(--very-small-indent);
+}
+
+.Loader {
+    align-self: center;
+}
+
+.Home button {
+    width: 170px;
+    padding-top: var(--small-indent);
+    padding-bottom: var(--small-indent);
+    padding-left: var(--big-indent);
+    padding-right: var(--big-indent);
+}

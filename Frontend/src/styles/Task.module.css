@@ -1,0 +1,17 @@
+.Task {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--small-indent);
+    background-color: var(--light-blue);
+    width: 50%;
+    min-width: 650px;
+    padding: var(--normal-indent);
+}
+
+h2 {
+    margin: 0;
+}
+
+html, body {
+    height: unset;
+}
