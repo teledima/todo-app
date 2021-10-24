@@ -89,4 +89,7 @@ def get_full_info(task_id):
     db = sqlite3.connect('todo.db')
     cur = db.cursor()
     task = cur.execute('select title, description from tasks where id=:task_id and user_id=:user_id', {'task_id': task_id, 'user_id': session['user_id']}).fetchone()
-    return jsonify(title=task[0], description=task[1]), 200
+    if task:
+        return jsonify(title=task[0], description=task[1]), 200
+    else:
+        return make_response('', 404)
