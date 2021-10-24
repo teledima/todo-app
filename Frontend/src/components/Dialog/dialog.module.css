@@ -1,0 +1,24 @@
+.Dialog {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0,0,0, 0.5);
+    display: none;
+}
+
+.Dialog.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.DialogContent {
+    height: fit-content;
+    width: fit-content;
+    background-color: white;
+    border-radius: var(--normal-border-radius);
+    border: 1px solid black
+}

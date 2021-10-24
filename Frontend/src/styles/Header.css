@@ -1,0 +1,40 @@
+.AppHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--gray);
+    font-size: var(--big-font-size);
+    overflow: hidden;
+}
+
+.AppHeader > p {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.AppHeader p {
+    text-align:center;
+    margin: 0;
+    padding: var(--normal-indent);
+}
+
+.AppHeader div.header__right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+}
+
+.AppHeader button {
+    box-sizing: content-box;
+    border: none;
+    background-color: inherit;
+    padding: var(--normal-indent);
+    cursor: pointer;
+    display: inline-block;
+}
+
+.AppHeader button:hover {
+    background-color: white;
+}
