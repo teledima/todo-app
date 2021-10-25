@@ -29,15 +29,20 @@ const TaskItem = ({task, onCheckboxChange, onDeleteTask}) => {
         setIsLoading(false)
     }
 
+    const handlerDeleteTask = async() => {
+        setIsLoading(true)
+        await onDeleteTask(task)
+    }
+
     return (
         <div className="TaskItem" data-reactid={task.id}>
             <input type="checkbox" value="task" onChange={() => onCheckboxChange(task)} checked={task.checked} disabled={isLoading}/>
             <input type="text" id="task-description-unchecked" name="task-description" value={Title} onDoubleClick={handlerShowAll} onChange={handlerChangeTitle} disabled={isLoading} required/>
-            <img src="https://api.iconify.design/bx/bx-trash.svg?color=red&height=28" onClick={!isLoading?() => {onDeleteTask(task)}:null} alt="trash-icon"></img>
+            <img src="https://api.iconify.design/bx/bx-trash.svg?color=red&height=28" onClick={!isLoading?handlerDeleteTask:null} alt="trash-icon"></img>
             {isChange && !isLoading && <img src='https://api.iconify.design/akar-icons/circle-check-fill.svg?color=%230fa958&height=28' alt="apply-changes" onClick={!isLoading?handlerApplyChanges:null}/>}
             {isLoading && <Loader className="Loader" type="TailSpin" color="#00BFFF" height={28} width={28}/>}
         </div>
     )
 }
 
-export default React.memo(TaskItem)
+export default TaskItem
