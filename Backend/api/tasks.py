@@ -43,8 +43,6 @@ def create_task():
 
 @tasks_blueprint.route('/delete-task', methods=['POST'])
 def delete_task():
-    import time
-    time.sleep(10)
     if 'user_id' not in session or not session['user_id']:
         return make_response('', 403)
     data = request.json
