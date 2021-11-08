@@ -39,7 +39,7 @@ const Home = () => {
     event.preventDefault()
     const data = await new TasksService().CreateTask(title, description)
     if (data['ok']) {
-      setUncheckedTasks([...uncheckedTasks, {id: data['id'], title, description}])
+      setUncheckedTasks([...uncheckedTasks, {id: data['id'], title, description, checked: 0}])
       setVisibleDialog(false)
     }
   }, [uncheckedTasks])
