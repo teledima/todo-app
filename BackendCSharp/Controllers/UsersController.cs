@@ -15,26 +15,27 @@ namespace BackendCSharp.Controllers
     {
 
         [HttpGet("get-user-info")]
-        public ActionResult<string> GetUser()
+        public ActionResult<User> GetUser()
         {
-            var userLogin = HttpContext.Session.GetString("UserLogin");
-            var userId = HttpContext.Session.GetString("UserId");
-            return JsonSerializer.Serialize(new { login=userLogin, id=userId });
+            var userString = HttpContext.Session.GetString("User");
+            if (string.IsNullOrEmpty(userString))
+                return new User() { Id = null };
+            else
+                return JObject.Parse(userString).ToObject<User>();
         }
 
         [HttpPost("login")]
-        public ActionResult<JObject> Login([FromBody] JObject model)
+        public ActionResult<ResultDescription> Login([FromBody] User userModel)
         {
-            var userModel = model.ToObject<User>();
             if (userModel == null || string.IsNullOrEmpty(userModel.Login) || string.IsNullOrEmpty(userModel.Password))
-                return JObject.FromObject(new { ok = false, error = "empty_data" });
+                return new ResultDescription() { Ok = false, Error = "empty_data" };
 
             var db = new TasksContext();
             var user = db.Users.FirstOrDefault(user => user.Login == userModel.Login);
 
             // if a user with such a username does not exist, return an error
             if (user == null)
-                return JObject.FromObject(new { ok = false, error = "incorrect_login_or_password" });
+                return new ResultDescription() { Ok = false, Error = "incorrect_login_or_password" };
 
             // if the user is found, check the passwords
             // add salt and parse to byte array
@@ -49,19 +50,17 @@ namespace BackendCSharp.Controllers
             // compare passwords
             // if the passwords match, return success
             if (encryptedPassword != user.Password)
-                return JObject.FromObject(new { ok = false, error = "incorrect_login_or_password" });
+                return new ResultDescription { Ok = false, Error = "incorrect_login_or_password" };
 
-            HttpContext.Session.SetString("UserLogin", user.Login);
-            HttpContext.Session.SetString("UserId", user.Id.ToString());
-            return JObject.FromObject(new { ok = true });
+            HttpContext.Session.SetString("User", JObject.FromObject(new User { Id = user.Id, Login = user.Login }).ToString());
+            return new ResultDescription { Ok = true };
         }
 
         [HttpPost("register")]
-        public ActionResult<JObject> Register([FromBody] JObject model)
+        public ActionResult<ResultDescription> Register([FromBody] User userModel)
         {
-            var userModel = model.ToObject<User>();
             if (userModel == null || string.IsNullOrEmpty(userModel.Login) || string.IsNullOrEmpty(userModel.Password))
-                return JObject.FromObject(new { ok = false, error = "empty_data" });
+                return new ResultDescription() { Ok = false, Error = "empty_data" };
 
             const string allSaltSymbols = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!\"#$%&\\'()*+,-./:;<=>?@[\\\\]^_`{|}~";
             var random = new Random();
@@ -90,14 +89,14 @@ namespace BackendCSharp.Controllers
                 if (inner_ex != null && inner_ex is SqliteException @sqliteException)
                 {
                     if (sqliteException.SqliteErrorCode == 19)
-                        return JObject.FromObject(new { ok = false, error = "user_exist" });
+                        return new ResultDescription() { Ok = false, Error = "user_exist" };
                     else
-                        return JObject.FromObject(new { ok = false, error = ex.Message });
+                        return new ResultDescription() { Ok = false, Error = ex.Message };
                 }
                 else
-                    return JObject.FromObject(new { ok = false, error = ex.Message });
+                    return new ResultDescription() { Ok = false, Error = ex.Message };
             }
-            return JObject.FromObject(new { ok = true });
+            return new ResultDescription()  { Ok = true };
         }
 
         [HttpPost("logout")]

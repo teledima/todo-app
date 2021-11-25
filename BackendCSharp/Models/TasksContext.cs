@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Build.Framework;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace BackendCSharp.Models
 {
@@ -33,23 +35,31 @@ namespace BackendCSharp.Models
         }
     }
 
-
     public class User
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public string Salt { get; set; }
+        [JsonIgnore]
+        public string? Salt { get; set; }
+        [JsonIgnore]
+        public List<Task>? Tasks { get; set; }
 
-        public IList<Task> Tasks { get; set; }
+        public bool ShouldSerializePassword()
+        {
+            return Password != null;
+        }
     }
 
     public class Task
     {
+        [Required]
         public int Id { get; set; }
+        [Required]
         public string Title { get; set; }
         public string Description { get; set; }
-        public int Checked { get; set; }
-        public User User { get; set; }
+        public int? Checked { get; set; }
+        [JsonIgnore]
+        public User? User { get; set; }
     }
 }

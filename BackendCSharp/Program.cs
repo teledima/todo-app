@@ -16,6 +16,8 @@ builder.Services.AddCors(options => options.AddPolicy("MyPolicy", policy => poli
                                                                                   .AllowAnyHeader()
                                                                                   .WithOrigins("http://localhost:3000")));
 
+builder.Services.AddSwaggerGenNewtonsoftSupport();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,7 +30,6 @@ app.UseHttpsRedirection();
 
 app.UseSession();
 app.UseCors("MyPolicy");
-app.UseAuthentication();
 
 app.MapControllers();
 

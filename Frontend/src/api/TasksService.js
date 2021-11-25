@@ -7,9 +7,9 @@ export default class TasksService {
             withCredentials: true
         })
     }
-    async GetTasks(checked) {
+    async GetTasks(Checked) {
         const response = await this.axios_instance.get('/api/tasks/get-tasks', {
-            params: { checked }
+            params: { Checked }
         })
         return await response.data
     }
