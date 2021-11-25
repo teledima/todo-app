@@ -7,7 +7,7 @@ import TaskItem from "./TaskItem"
 const TasksList = ({title, checked, tasks, setTasks, changeCheckbox, deleteTask}) => {
     const state = useAsync(async() => {
         const data = await new TasksService().GetTasks(checked)
-        setTasks(data.tasks)
+        setTasks(data)
     }, [checked])
 
     return (

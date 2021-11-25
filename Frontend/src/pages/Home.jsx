@@ -14,7 +14,7 @@ const Home = () => {
   }
 
   const handlerChangeCheckbox = useCallback(async(item) => {
-    const data = await new TasksService().UpdateTask({id: item.id, status: !item.checked})
+    const data = await new TasksService().UpdateTask({id: item.id, checked: !item.checked?1:0})
     if (data['ok'])
       if (item.checked === 0) {
         setCheckedTasks([...checkedTasks, {id: item.id, title: item.title, checked: 1}])
